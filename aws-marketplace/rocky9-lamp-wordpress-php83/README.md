@@ -13,13 +13,18 @@
 2) Access
    - http://<public-ip>/  (redirects to setup if not configured)
    - https://<public-ip>/ (self-signed by default; browser warning is expected)
+
+![initial](images/initial.png)
+
 3) Credentials
    - Credentials file: /home/rocky/credentials.toml
    - Created on first boot
 
+![Login banner showing credentials path](images/login-banner.png)
+
 ## phpMyAdmin access (recommended: SSH tunnel)
 - ssh -L 8080:localhost:80 rocky@<public-ip>
-- Open: http://127.0.0.1:8080/phpmyadmin
+- Open: http://127.0.0.1:8080/phpmyadmin/
 - Login: DB user shown in credentials.toml (wordpress / password)
 
 ## HTTPS / Certificates
@@ -33,10 +38,8 @@
 - This AMI sets contexts so WordPress works with SELinux enforcing.
 - If you customize paths, update contexts accordingly.
 
-## Updates / Maintenance
-- OS update / package update procedure
+## WP-CLI
 - WordPress update procedure (WP-CLI or UI)
-- Backup guidance (EBS snapshot + DB dump)
 
 ## Troubleshooting
 - httpd not running: systemctl status httpd ; journalctl -u httpd -b
