@@ -8,7 +8,7 @@
 
 ## Quickstart (5 minutes)
 1) Launch EC2
-   - Security Group: allow 80/443 from your IP (or 0.0.0.0/0 for testing)
+   - Security Group: allow 80/443 from your IP (or 0.0.0.0/0 for public)
    - For phpMyAdmin: do NOT open 80/443 publicly if you intend to use it; use SSH tunnel
 2) Access
    - http://<public-ip>/  (redirects to setup if not configured)
