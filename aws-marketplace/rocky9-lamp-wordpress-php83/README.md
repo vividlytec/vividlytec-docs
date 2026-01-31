@@ -14,7 +14,7 @@
    - http://<public-ip>/  (redirects to setup if not configured)
    - https://<public-ip>/ (self-signed by default; browser warning is expected)
 
-![initial](images/initial.png)
+<img src="images/initial.png" alt="initial" width="700">
 
 3) Credentials
    - Credentials file: /home/rocky/credentials.toml
