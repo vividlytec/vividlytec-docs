@@ -2,14 +2,15 @@
 
 ## What this AMI includes
 - OS: Rocky Linux 9.x
-- Apache httpd, PHP-FPM (PHP 8.3), MariaDB (version)
+- Apache httpd, PHP-FPM (PHP 8.3), MariaDB (10.11)
 - WordPress installed at: /var/www/wordpress
 - phpMyAdmin installed (local-only)
 
 ## Quickstart (5 minutes)
 1) Launch EC2
-   - Security Group: allow 80/443 from your IP (or 0.0.0.0/0 for public)
-   - For phpMyAdmin: do NOT open 80/443 publicly if you intend to use it; use SSH tunnel
+   - For WordPress (public): allow 80/443 from your IP (or 0.0.0.0/0 only if you intentionally want it public)
+   - For phpMyAdmin: do not expose it publicly; use SSH tunnel or restrict access to your IP only
+
 2) Access
    - http://<public-ip>/  (redirects to setup if not configured)
    - https://<public-ip>/ (self-signed by default; browser warning is expected)
@@ -17,15 +18,25 @@
 <img src="images/initial.png" alt="initial" width="300">
 
 3) Credentials
-   - Credentials file: /home/rocky/credentials.toml
+   - Credentials file (root-only): /etc/vividlytec/credentials.toml
+   - View: sudo cat /etc/vividlytec/credentials.toml
    - Created on first boot
 
 ![Login banner showing credentials path](images/login-banner.png)
 
+## Database (MariaDB)
+- Application DB user (for WordPress/phpMyAdmin):
+  - mysql -u wordpress -p
+  - Password is in: sudo cat /etc/vividlytec/credentials.toml
+- Admin access (root uses unix_socket):
+  - sudo mysql
+
 ## phpMyAdmin access (recommended: SSH tunnel)
-- ssh -L 8080:localhost:80 rocky@<public-ip>
-- Open: http://127.0.0.1:8080/phpmyadmin/
-- Login: DB user shown in credentials.toml (wordpress / password)
+- Do not expose phpMyAdmin publicly.
+- SSH tunnel:
+  - ssh -L 8080:localhost:80 rocky@<public-ip>
+  - Open: http://127.0.0.1:8080/phpmyadmin/
+- Login: Use the WordPress DB user/password from /etc/vividlytec/credentials.toml (sudo required)
 
 ## HTTPS / Certificates
 - Default: self-signed (for “it works out of the box”)
@@ -35,14 +46,22 @@
   - /etc/pki/tls/private/localhost.key
 
 ## SELinux notes
-- This AMI sets contexts so WordPress works with SELinux enforcing.
-- If you customize paths, update contexts accordingly.
+- SELinux is enabled (Enforcing). This AMI is pre-configured for WordPress.
+- If you move WordPress paths, update SELinux contexts accordingly.
 
-## WP-CLI
-- WordPress update procedure (WP-CLI or UI)
+## WP-CLI (URL update after stop/start)
+If the instance public IP (or domain) changes, update the WordPress URL:
 
-## Troubleshooting
-- httpd not running: systemctl status httpd ; journalctl -u httpd -b
-- 443 not listening: check Listen 443 + cert paths + mod_ssl
-- Permission/SELinux: ausearch -m AVC -ts recent
+- Get current URL:
+  - sudo -u apache wp --path=/var/www/wordpress option get home
+  - sudo -u apache wp --path=/var/www/wordpress option get siteurl
+
+- Update to a new URL (example with public IP):
+  - NEW_URL="http://<new-public-ip>"
+  - sudo -u apache wp --path=/var/www/wordpress option update home "$NEW_URL"
+  - sudo -u apache wp --path=/var/www/wordpress option update siteurl "$NEW_URL"
+
+(Optional) Replace old URLs in content (use carefully):
+  - OLD_URL="http://<old-public-ip>"
+  - sudo -u apache wp --path=/var/www/wordpress search-replace "$OLD_URL" "$NEW_URL" --all-tables --skip-columns=guid
 
