@@ -12,8 +12,8 @@
    - For phpMyAdmin: do not expose it publicly; use SSH tunnel or restrict access to your IP only
 
 2) Access
-   - http://<public-ip>/  (redirects to setup if not configured)
-   - https://<public-ip>/ (self-signed by default; browser warning is expected)
+   - http://`<public-ip>`/  (redirects to setup if not configured)
+   - https://`<public-ip>`/ (self-signed by default; browser warning is expected)
 
 <img src="images/initial.png" alt="initial" width="300">
 
