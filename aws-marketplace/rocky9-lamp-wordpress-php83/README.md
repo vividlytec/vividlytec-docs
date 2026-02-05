@@ -46,7 +46,7 @@ password = "xxxxxxxxxxxxxxxxxxxxxxxx"
 ## phpMyAdmin access (recommended: SSH tunnel)
 - Do not expose phpMyAdmin publicly.
 - SSH tunnel:
-  - ssh -L 8080:localhost:80 rocky@<public-ip>
+  - ssh -N -L 8080:localhost:80 rocky@`<public-ip>`
   - Open: http://127.0.0.1:8080/phpmyadmin/
 - Login: Use the WordPress DB user/password from /etc/vividlytec/credentials.toml (sudo required)
 
