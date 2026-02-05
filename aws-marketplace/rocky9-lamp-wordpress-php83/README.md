@@ -36,8 +36,6 @@ user = "wordpress"
 password = "xxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
-![Login banner showing credentials path](images/login-banner.png)
-
 ## Database (MariaDB)
 - Application DB user (for WordPress/phpMyAdmin):
   - mysql -u wordpress -p
