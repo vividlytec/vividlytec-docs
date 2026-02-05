@@ -15,8 +15,7 @@
    - http://`<public-ip>`/  (redirects to setup if not configured)
    - https://`<public-ip>`/ (self-signed by default; browser warning is expected)
 
-
-   <img src="images/initial.png" alt="initial" width="300">
+<img src="images/initial.png" alt="initial" width="300">
 
 3) Credentials
    - Credentials file (root-only): /etc/vividlytec/credentials.toml
