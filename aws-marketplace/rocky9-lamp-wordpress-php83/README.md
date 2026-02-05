@@ -22,6 +22,20 @@
    - View: sudo cat /etc/vividlytec/credentials.toml
    - Created on first boot
 
+```
+$ sudo cat /etc/vividlytec/credentials.toml
+generated_at = "2026-02-05T00:10:45Z"
+status = "success"
+
+[wordpress]
+path = "/var/www/wordpress"
+
+[db]
+name = "wordpress"
+user = "wordpress"
+password = "xxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
 ![Login banner showing credentials path](images/login-banner.png)
 
 ## Database (MariaDB)
@@ -39,9 +53,9 @@
 - Login: Use the WordPress DB user/password from /etc/vividlytec/credentials.toml (sudo required)
 
 ## HTTPS / Certificates
-- Default: self-signed (for “it works out of the box”)
-- Recommended: use ACM + ALB, or certbot/your own cert
-- Replace certificate paths:
+- Default: self-signed (browser warning is expected)
+- Recommended (production): terminate TLS at an ALB with an ACM certificate.
+- Alternative: install and configure your preferred certificate tool and replace the certificate files below:
   - /etc/pki/tls/certs/localhost.crt
   - /etc/pki/tls/private/localhost.key
 
