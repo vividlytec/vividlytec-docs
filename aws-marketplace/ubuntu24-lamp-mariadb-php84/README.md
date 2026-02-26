@@ -77,7 +77,7 @@ A credentials file is generated on first boot:
 View it:
 
 ```bash
-sudo cat /home/ubuntu/credentials.toml
+cat /home/ubuntu/credentials.toml
 ```
 
 > Treat this file as sensitive. Do not share it.
