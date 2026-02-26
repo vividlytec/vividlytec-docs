@@ -22,7 +22,7 @@ Applications (WordPress, frameworks, CMS, etc.) are installed and maintained by 
 | Apache      | `apache2 -v` |
 | MariaDB     | `mariadb --version` |
 | PHP         | `php -v` |
-| phpMyAdmin  | `dpkg -s phpmyadmin | grep '^Version:'` |
+| phpMyAdmin  | `dpkg -s phpmyadmin` | grep '^Version:'` |
 | Certbot     | `certbot --version` |
 
 ### Copy/paste (collect versions)
